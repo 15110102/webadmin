@@ -1,31 +1,50 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Badge, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
-import axios from 'axios';
-import usersData from './UsersData'
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import {
+  Badge,
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  Row,
+  Table,
+  Pagination,
+  PaginationItem,
+  PaginationLink
+} from "reactstrap";
+import axios from "axios";
+import usersData from "./UsersData";
 
 function UserRow(props) {
-  const user = props.user
-  const userLink = `/users/${user.idUser}`
+  const user = props.user;
+  const userLink = `/users/${user.idUser}`;
 
-  const getBadge = (status) => {
-    return status === 'Active' ? 'success' :
-      status === 'Inactive' ? 'secondary' :
-        status === 'Pending' ? 'warning' :
-          status === 'Banned' ? 'danger' :
-            'primary'
-  }
+  const getBadge = status => {
+    return status === "Active"
+      ? "success"
+      : status === "Inactive"
+      ? "secondary"
+      : status === "Pending"
+      ? "warning"
+      : status === "Banned"
+      ? "danger"
+      : "primary";
+  };
 
   return (
     <tr key={user.id.toString()}>
-      <th scope="row"><Link to={userLink}>{user.id}</Link></th>
-      <td><Link to={userLink}>{user.name}</Link></td>
+      <th scope="row">
+        <Link to={userLink}>{user.id}</Link>
+      </th>
+      <td>
+        <Link to={userLink}>{user.name}</Link>
+      </td>
       <td>{user.postTotal}</td>
       <td>{user.likeTotal}</td>
       {/* <img src = {user.image} width = "100" height = "100" /> */}
       {/* <td>{user.email}</td> */}
     </tr>
-  )
+  );
 }
 
 class Users extends Component {
@@ -33,44 +52,34 @@ class Users extends Component {
     super(props);
     this.state = {
       usersData: [],
-      testData: [],
-    }
+      testData: []
+    };
   }
 
-  getDataUser = async () => {
-    const url = 'http://localhost:4000/api';
-    const users  = [...this.state.dataUser];
-    
-    let { data: { data } } = await axios.get(`${url}/users`);
-    debugger
-    // this.setState({ dataUser: users })
-  }
-
-  async componentDidMount() {
-    let { data: { data } } = await axios.get('http://localhost:4000/api/users');
+  makeHttpRequestWithPage = async pageNumber => {
+    let {
+      data: { data }
+    } = await axios.get(`http://localhost:4000/api/users?offset=${pageNumber}`);
     const user = await data.map((user, index) => {
-      console.log("userrrrrr: ", user);
       return {
         id: index + 1,
         idUser: user._id,
         name: user.username,
         postTotal: user.posts.length,
-        likeTotal: user.likes.length,
-      }
-    })
-    console.log("dataaaaa: ", user);
+        likeTotal: user.likes.length
+      };
+    });
     this.setState({
       testData: user
-    })
+    });
+  };
+
+  async componentDidMount() {
+    this.makeHttpRequestWithPage(1);
   }
 
   render() {
     const { testData } = this.state;
-    console.log("testData: ", testData);
-    
-    const userList = usersData.filter((user) => user.id < 10)
-    console.log("userList: ", userList);
-
 
     return (
       <div className="animated fadeIn">
@@ -78,7 +87,8 @@ class Users extends Component {
           <Col xl={6}>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i> Users <small className="text-muted">example</small>
+                <i className="fa fa-align-justify"></i> Users{" "}
+                <small className="text-muted">example</small>
               </CardHeader>
               <CardBody>
                 <Table responsive hover>
@@ -91,17 +101,28 @@ class Users extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {testData.map((user, index) =>
-                      <UserRow key={index} user={user}/>
-                    )}
+                    {testData.map((user, index) => (
+                      <UserRow key={index} user={user} />
+                    ))}
                   </tbody>
+                  <Pagination>
+                    <PaginationItem>
+                      <PaginationLink onClick = {() =>this.makeHttpRequestWithPage(1)}>1</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink onClick = {() =>this.makeHttpRequestWithPage(2)}>2</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink onClick = {() => this.makeHttpRequestWithPage(3)}>3</PaginationLink>
+                    </PaginationItem>
+                  </Pagination>
                 </Table>
               </CardBody>
             </Card>
           </Col>
         </Row>
       </div>
-    )
+    );
   }
 }
 

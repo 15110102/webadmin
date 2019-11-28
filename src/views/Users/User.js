@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
-
+import { Card, CardBody, CardHeader, Col, Row, Table, CardImg } from 'reactstrap';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import usersData from './UsersData'
 
 class User extends Component {
@@ -9,30 +9,69 @@ class User extends Component {
     super(props)
   
     this.state = {
-      user: null     
+      user: {
+        followers: [],
+        posts: [],
+        likes: [],
+      },
+      fielldShow: ['username', 'fullName', 'email'],
     }
   }
 
   getUserDetail = async () => {
     let userId = this.props.match.params.id;
     const url = `http://localhost:4000/api/users?userId=${userId}`;
-    let {data: {data}} = await axios.get(url);    
+    let { data: { data } } = await axios.get(url);    
     
     this.setState({ user: data[0] })
-  }
+	}
+	
+	chartInfoUser = () => {
+    const {user} = this.state;
+    const data = [
+      {
+        name: user.fullName,
+        likes: user.likes.length,
+        posts: user.posts.length,
+        followers: user.followers.length,
+      }
+    ]
+		return(
+      <BarChart
+        width={500}
+        height={300}
+        data={data}
+        margin={{
+          top: 5, right: 30, left: 20, bottom: 5,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="likes" fill="#8884d8" />
+        <Bar dataKey="posts" fill="#82ca9d" />
+        <Bar dataKey="followers" fill="#ff2626" />
+      </BarChart>
+    )
+	}
 
   componentDidMount() {
     this.getUserDetail();
   }
 
   render() {
-    let user = this.state.user;
+    let { user, fielldShow } = this.state;
     
-    const userDetails = user ? Object.entries(user) : [['id', (<span><i className="text-muted icon-ban"></i> Not found</span>)]]
-    console.log("userDetails: ", userDetails);
-    // const filter = [userDetails[7], userDetails[8], userDetails[9]]
-    // console.log("filter: ", filter);
-    
+    let userDetails = user ? Object.keys(user).reduce((total, curr) => {
+      if (fielldShow.find(item => item === curr)) {
+        total = Object.assign(total, { [curr]: user[curr] })
+      }
+      return total
+    }, {}) : {}
+    userDetails = Object.entries(userDetails)
+
     return (
       <div className="animated fadeIn">
         <Row>
@@ -58,6 +97,12 @@ class User extends Component {
                   </Table>
               </CardBody>
             </Card>
+          </Col>
+          <Col lg={6}>
+              <div style ={{paddingRight: 200, paddingBottom: 20, paddingLeft: 50}}>
+						    <CardImg src={user.image} height = {250}/>
+            </div>
+						{this.chartInfoUser()}
           </Col>
         </Row>
       </div>

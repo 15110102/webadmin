@@ -59,7 +59,7 @@ class Charts extends Component {
      
     return (
       <div className="animated fadeIn">
-      <Badge color="primary"style = {{fontSize: 16}}>User Statistic 2019</Badge>
+      <Badge color="primary"style = {{fontSize: 16}}>Post Statistic 2019</Badge>
         <ResponsiveContainer className="chart" height={300}>   
           <LineChart
             width={600}
