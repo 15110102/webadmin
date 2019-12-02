@@ -14,7 +14,7 @@ class User extends Component {
         posts: [],
         likes: [],
       },
-      fielldShow: ['username', 'fullName', 'email'],
+      fielldShow: ['username', 'fullName', 'email','createdAt' ,'updatedAt', 'isOnline'],
     }
   }
 
@@ -63,6 +63,7 @@ class User extends Component {
 
   render() {
     let { user, fielldShow } = this.state;
+    console.log("uerrrrrrrrrrr: ", user);
     
     let userDetails = user ? Object.keys(user).reduce((total, curr) => {
       if (fielldShow.find(item => item === curr)) {

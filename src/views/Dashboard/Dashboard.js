@@ -604,8 +604,6 @@ class Dashboard extends Component {
               </th>
               <th>User</th>
               <th className="text-center">Country</th>
-              <th>Usage</th>
-              <th className="text-center">Payment Method</th>
               <th>Activity</th>
             </tr>
           </thead>
@@ -617,7 +615,7 @@ class Dashboard extends Component {
                   <td className="text-center">
                     <div className="avatar">
                       <img
-                        src={item.coverImage}
+                        src={item.image}
                         className="img-avatar"
                         alt="admin@bootstrapmaster.com"
                       />
@@ -636,27 +634,8 @@ class Dashboard extends Component {
                     ></i>
                   </td>
                   <td>
-                    <div className="clearfix">
-                      <div className="float-left">
-                        <strong>50%</strong>
-                      </div>
-                      <div className="float-right"></div>
-                    </div>
-                    <Progress
-                      className="progress-xs"
-                      color="success"
-                      value="50"
-                    />
-                  </td>
-                  <td className="text-center">
-                    <i
-                      className="fa fa-cc-mastercard"
-                      style={{ fontSize: 24 + "px" }}
-                    ></i>
-                  </td>
-                  <td>
                     <div className="small text-muted">Last login</div>
-                    <strong>10 sec ago</strong>
+                    <strong>a day ago</strong>
                   </td>
                 </tr>
               </tbody>
