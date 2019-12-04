@@ -19,6 +19,7 @@ class Charts extends Component {
         { name: "Jan", posts: 0 },
         { name: "Feb", posts: 0 },
         { name: "Mar", posts: 0 },
+        { name: "Apr", posts: 0 },
         { name: "May", posts: 0 },
         { name: "Jun", posts: 0 },
         { name: "Junl", posts: 0 },
@@ -54,7 +55,45 @@ class Charts extends Component {
   }
 
   render() {
-    const { dataUser, data, posts, users } = this.state;
+    const { dataUser } = this.state;
+    const data = [
+      {
+        name: "Jan", user: 0
+      },
+      {
+        name: 'Feb', user: 0
+      },
+      {
+        name: 'Mar', user: 0
+      },
+      {
+        name: 'Apr', user: 0
+      },
+      {
+        name: 'May', user: 0
+      },
+      {
+        name: 'Jun', user: 0
+      },
+      {
+        name: 'JunL', user: 0
+      },
+      {
+        name: 'Aug', user: 0
+      },
+      {
+        name: 'Sep', user: 0
+      },
+      {
+        name: 'Oct', user: 0
+      },
+      {
+        name: 'Nov', user: 5
+      },
+      {
+        name: 'Dec', user: 21
+      },
+    ];
     this.getDataUser();
      
     return (
@@ -76,6 +115,23 @@ class Charts extends Component {
           </LineChart>
         </ResponsiveContainer>
 
+
+        <Badge color="primary"style = {{fontSize: 16}}>User Statistic 2019</Badge>
+        <ResponsiveContainer className="chart" height={300}>   
+          <LineChart
+            width={600}
+            height={300}
+            data={data}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          >
+            <XAxis dataKey="name" />
+            <YAxis />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="user" stroke="#82ca9d" />
+          </LineChart>
+        </ResponsiveContainer>
 
       </div>
     );
