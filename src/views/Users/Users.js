@@ -91,6 +91,11 @@ class Users extends Component {
                 <small className="text-muted">example</small>
               </CardHeader>
               <CardBody>
+                <li>
+                  <Link to="/createUser">
+                    <button>CREATE NEW USER</button>
+                  </Link>
+                </li>
                 <Table responsive hover>
                   <thead>
                     <tr>
@@ -107,13 +112,39 @@ class Users extends Component {
                   </tbody>
                   <Pagination>
                     <PaginationItem>
-                      <PaginationLink onClick = {() =>this.makeHttpRequestWithPage(1)}>1</PaginationLink>
+                      <PaginationLink
+                        onClick={() => this.makeHttpRequestWithPage(1)}
+                      >
+                        1
+                      </PaginationLink>
                     </PaginationItem>
                     <PaginationItem>
-                      <PaginationLink onClick = {() =>this.makeHttpRequestWithPage(2)}>2</PaginationLink>
+                      <PaginationLink
+                        onClick={() => this.makeHttpRequestWithPage(2)}
+                      >
+                        2
+                      </PaginationLink>
                     </PaginationItem>
                     <PaginationItem>
-                      <PaginationLink onClick = {() => this.makeHttpRequestWithPage(3)}>3</PaginationLink>
+                      <PaginationLink
+                        onClick={() => this.makeHttpRequestWithPage(3)}
+                      >
+                        3
+                      </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink
+                        onClick={() => this.makeHttpRequestWithPage(4)}
+                      >
+                        4
+                      </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink
+                        onClick={() => this.makeHttpRequestWithPage(5)}
+                      >
+                        5
+                      </PaginationLink>
                     </PaginationItem>
                   </Pagination>
                 </Table>

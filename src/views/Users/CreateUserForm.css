@@ -1,0 +1,17 @@
+form {
+  border: thin solid red;
+  padding: 2rem;
+  margin: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+ 
+.formtext {
+  position: relative;
+  top: -48px;
+  background: white;
+  padding: 7px;
+  width: 100px;
+  color: red;
+}

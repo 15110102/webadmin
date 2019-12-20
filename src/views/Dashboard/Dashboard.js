@@ -554,6 +554,8 @@ class Dashboard extends Component {
 
   render() {
     const { users, usersCount } = this.state;
+    console.log("userrrrrrrr: ", users);
+
     return (
       <div className="animated fadeIn">
         <Row>
@@ -614,11 +616,19 @@ class Dashboard extends Component {
                 <tr>
                   <td className="text-center">
                     <div className="avatar">
-                      <img
-                        src={item.image}
-                        className="img-avatar"
-                        alt="admin@bootstrapmaster.com"
-                      />
+                      {item.image ? (
+                        <img
+                          src={item.image}
+                          className="img-avatar"
+                          alt="admin@bootstrapmaster.com"
+                        />
+                      ) : (
+                        <img
+                          src="https://beautifulmemory.sg/wp-content/uploads/2019/03/default-avatar-profile-icon-vector-18942381.jpg"
+                          className="img-avatar"
+                          alt=""
+                        />
+                      )}
                       <span className="avatar-status badge-success"></span>
                     </div>
                   </td>
@@ -655,6 +665,16 @@ class Dashboard extends Component {
             <PaginationItem>
               <PaginationLink onClick={() => this.getDataUser(3)}>
                 3
+              </PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink onClick={() => this.getDataUser(4)}>
+                4
+              </PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink onClick={() => this.getDataUser(5)}>
+                5
               </PaginationLink>
             </PaginationItem>
           </Pagination>
