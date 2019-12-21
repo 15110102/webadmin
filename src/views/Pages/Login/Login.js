@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import {
   Button,
   Card,
@@ -7,33 +6,36 @@ import {
   CardGroup,
   Col,
   Container,
-  Form,
   Input,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
   Row
 } from "reactstrap";
+import axios from "axios";
 
-const userInfo = { email: "admin", password: "123456" };
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
+      username: "",
       password: ""
     };
   }
 
-  _signin = () => {
-    if (
-      userInfo.email === this.state.email &&
-      userInfo.password === this.state.password
-    ) {
-      alert("Login successed");
+  _signin = async (evt) => {
+    evt.preventDefault()
+    let _data = {
+      username: this.state.username,
+      password: this.state.password
+    }
+
+    let { data } = await axios.post(`http://localhost:4000/api/login`, _data)
+    if (data.isAuth) {
+      localStorage.setItem('userAuth', JSON.stringify(_data))
       this.props.history.push('/dashboard')
     } else {
-      alert("Login Fail");
+      alert(data.message);
     }
   };
 
@@ -46,8 +48,8 @@ class Login extends Component {
               <CardGroup>
                 <Card className="p-4">
                   <CardBody>
-                    <Form>
-                      <h1>Login</h1>
+                    <div>
+                      <h1>Login VIVU server</h1>
                       <p className="text-muted">Sign In to your account</p>
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
@@ -59,7 +61,7 @@ class Login extends Component {
                           type="text"
                           placeholder="Username"
                           autoComplete="username"
-                          onChange={email => this.setState({ email })}
+                          onChange={evt => this.setState({ username: evt.target.value })}
                         />
                       </InputGroup>
                       <InputGroup className="mb-4">
@@ -72,7 +74,7 @@ class Login extends Component {
                           type="password"
                           placeholder="Password"
                           autoComplete="current-password"
-                          onChange={password => this.setState({ password })}
+                          onChange={evt => this.setState({ password: evt.target.value })}
                         />
                       </InputGroup>
                       <Row>
@@ -89,31 +91,10 @@ class Login extends Component {
                         </Col>
                         <Col xs="6" className="text-right">
                           <Button color="link" className="px-0">
-                            Forgot password?
+                            
                           </Button>
                         </Col>
                       </Row>
-                    </Form>
-                  </CardBody>
-                </Card>
-                <Card
-                  className="text-white bg-primary py-5 d-md-down-none"
-                  style={{ width: "44%" }}
-                >
-                  <CardBody className="text-center">
-                    <div>
-                      <h2>Sign up</h2>
-                      <p>If you do not have an account, please register</p>
-                      <Link to="/register">
-                        <Button
-                          color="primary"
-                          className="mt-3"
-                          active
-                          tabIndex={-1}
-                        >
-                          Register Now!
-                        </Button>
-                      </Link>
                     </div>
                   </CardBody>
                 </Card>

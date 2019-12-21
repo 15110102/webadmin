@@ -1,23 +1,15 @@
-import React, { Component, lazy, Suspense } from "react";
-import { Bar, Line } from "react-chartjs-2";
+import React, { Component } from "react";
+import { Bar } from "react-chartjs-2";
 import axios from "axios";
 import {
-  Badge,
-  Button,
   ButtonDropdown,
   ButtonGroup,
-  ButtonToolbar,
   Card,
   CardBody,
-  CardFooter,
-  CardHeader,
-  CardTitle,
   Col,
-  Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
-  Progress,
   Row,
   Table,
   Pagination,
@@ -25,178 +17,131 @@ import {
   PaginationLink
 } from "reactstrap";
 import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
-import { getStyle, hexToRgba } from "@coreui/coreui/dist/js/coreui-utilities";
+// import { getStyle, hexToRgba } from "@coreui/coreui/dist/js/coreui-utilities";
+import { AppSwitch } from "@coreui/react";
 
-const Widget03 = lazy(() => import("../../views/Widgets/Widget03"));
+// const brandPrimary = getStyle("--primary");
+// const brandSuccess = getStyle("--success");
+// const brandInfo = getStyle("--info");
+// const brandDanger = getStyle("--danger");
 
-const brandPrimary = getStyle("--primary");
-const brandSuccess = getStyle("--success");
-const brandInfo = getStyle("--info");
-const brandWarning = getStyle("--warning");
-const brandDanger = getStyle("--danger");
+// // Card Chart 1
+// const cardChartData1 = {
+//   labels: ["January", "February", "March", "April", "May", "June", "July"],
+//   datasets: [
+//     {
+//       label: "My First dataset",
+//       backgroundColor: brandPrimary,
+//       borderColor: "rgba(255,255,255,.55)",
+//       data: [65, 59, 84, 84, 51, 55, 40]
+//     }
+//   ]
+// };
 
-// Card Chart 1
-const cardChartData1 = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
-  datasets: [
-    {
-      label: "My First dataset",
-      backgroundColor: brandPrimary,
-      borderColor: "rgba(255,255,255,.55)",
-      data: [65, 59, 84, 84, 51, 55, 40]
-    }
-  ]
-};
+// // Card Chart 2
+// const cardChartData2 = {
+//   labels: ["January", "February", "March", "April", "May", "June", "July"],
+//   datasets: [
+//     {
+//       label: "My First dataset",
+//       backgroundColor: brandInfo,
+//       borderColor: "rgba(255,255,255,.55)",
+//       data: [1, 18, 9, 17, 34, 22, 11]
+//     }
+//   ]
+// };
 
-const cardChartOpts1 = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  maintainAspectRatio: false,
-  legend: {
-    display: false
-  },
-  scales: {
-    xAxes: [
-      {
-        gridLines: {
-          color: "transparent",
-          zeroLineColor: "transparent"
-        },
-        ticks: {
-          fontSize: 2,
-          fontColor: "transparent"
-        }
-      }
-    ],
-    yAxes: [
-      {
-        display: false,
-        ticks: {
-          display: false,
-          min: Math.min.apply(Math, cardChartData1.datasets[0].data) - 5,
-          max: Math.max.apply(Math, cardChartData1.datasets[0].data) + 5
-        }
-      }
-    ]
-  },
-  elements: {
-    line: {
-      borderWidth: 1
-    },
-    point: {
-      radius: 4,
-      hitRadius: 10,
-      hoverRadius: 4
-    }
-  }
-};
+// const cardChartOpts2 = {
+//   tooltips: {
+//     enabled: false,
+//     custom: CustomTooltips
+//   },
+//   maintainAspectRatio: false,
+//   legend: {
+//     display: false
+//   },
+//   scales: {
+//     xAxes: [
+//       {
+//         gridLines: {
+//           color: "transparent",
+//           zeroLineColor: "transparent"
+//         },
+//         ticks: {
+//           fontSize: 2,
+//           fontColor: "transparent"
+//         }
+//       }
+//     ],
+//     yAxes: [
+//       {
+//         display: false,
+//         ticks: {
+//           display: false,
+//           min: Math.min.apply(Math, cardChartData2.datasets[0].data) - 5,
+//           max: Math.max.apply(Math, cardChartData2.datasets[0].data) + 5
+//         }
+//       }
+//     ]
+//   },
+//   elements: {
+//     line: {
+//       tension: 0.00001,
+//       borderWidth: 1
+//     },
+//     point: {
+//       radius: 4,
+//       hitRadius: 10,
+//       hoverRadius: 4
+//     }
+//   }
+// };
 
-// Card Chart 2
-const cardChartData2 = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
-  datasets: [
-    {
-      label: "My First dataset",
-      backgroundColor: brandInfo,
-      borderColor: "rgba(255,255,255,.55)",
-      data: [1, 18, 9, 17, 34, 22, 11]
-    }
-  ]
-};
+// // Card Chart 3
+// const cardChartData3 = {
+//   labels: ["January", "February", "March", "April", "May", "June", "July"],
+//   datasets: [
+//     {
+//       label: "My First dataset",
+//       backgroundColor: "rgba(255,255,255,.2)",
+//       borderColor: "rgba(255,255,255,.55)",
+//       data: [78, 81, 80, 45, 34, 12, 40]
+//     }
+//   ]
+// };
 
-const cardChartOpts2 = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  maintainAspectRatio: false,
-  legend: {
-    display: false
-  },
-  scales: {
-    xAxes: [
-      {
-        gridLines: {
-          color: "transparent",
-          zeroLineColor: "transparent"
-        },
-        ticks: {
-          fontSize: 2,
-          fontColor: "transparent"
-        }
-      }
-    ],
-    yAxes: [
-      {
-        display: false,
-        ticks: {
-          display: false,
-          min: Math.min.apply(Math, cardChartData2.datasets[0].data) - 5,
-          max: Math.max.apply(Math, cardChartData2.datasets[0].data) + 5
-        }
-      }
-    ]
-  },
-  elements: {
-    line: {
-      tension: 0.00001,
-      borderWidth: 1
-    },
-    point: {
-      radius: 4,
-      hitRadius: 10,
-      hoverRadius: 4
-    }
-  }
-};
-
-// Card Chart 3
-const cardChartData3 = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
-  datasets: [
-    {
-      label: "My First dataset",
-      backgroundColor: "rgba(255,255,255,.2)",
-      borderColor: "rgba(255,255,255,.55)",
-      data: [78, 81, 80, 45, 34, 12, 40]
-    }
-  ]
-};
-
-const cardChartOpts3 = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  maintainAspectRatio: false,
-  legend: {
-    display: false
-  },
-  scales: {
-    xAxes: [
-      {
-        display: false
-      }
-    ],
-    yAxes: [
-      {
-        display: false
-      }
-    ]
-  },
-  elements: {
-    line: {
-      borderWidth: 2
-    },
-    point: {
-      radius: 0,
-      hitRadius: 10,
-      hoverRadius: 4
-    }
-  }
-};
+// const cardChartOpts3 = {
+//   tooltips: {
+//     enabled: false,
+//     custom: CustomTooltips
+//   },
+//   maintainAspectRatio: false,
+//   legend: {
+//     display: false
+//   },
+//   scales: {
+//     xAxes: [
+//       {
+//         display: false
+//       }
+//     ],
+//     yAxes: [
+//       {
+//         display: false
+//       }
+//     ]
+//   },
+//   elements: {
+//     line: {
+//       borderWidth: 2
+//     },
+//     point: {
+//       radius: 0,
+//       hitRadius: 10,
+//       hoverRadius: 4
+//     }
+//   }
+// };
 
 // Card Chart 4
 const cardChartData4 = {
@@ -235,150 +180,150 @@ const cardChartOpts4 = {
   }
 };
 
-// Social Box Chart
-const socialBoxData = [
-  { data: [65, 59, 84, 84, 51, 55, 40], label: "facebook" },
-  { data: [1, 13, 9, 17, 34, 41, 38], label: "twitter" },
-  { data: [78, 81, 80, 45, 34, 12, 40], label: "linkedin" },
-  { data: [35, 23, 56, 22, 97, 23, 64], label: "google" }
-];
+// // Social Box Chart
+// const socialBoxData = [
+//   { data: [65, 59, 84, 84, 51, 55, 40], label: "facebook" },
+//   { data: [1, 13, 9, 17, 34, 41, 38], label: "twitter" },
+//   { data: [78, 81, 80, 45, 34, 12, 40], label: "linkedin" },
+//   { data: [35, 23, 56, 22, 97, 23, 64], label: "google" }
+// ];
 
-const makeSocialBoxData = dataSetNo => {
-  const dataset = socialBoxData[dataSetNo];
-  const data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
-      {
-        backgroundColor: "rgba(255,255,255,.1)",
-        borderColor: "rgba(255,255,255,.55)",
-        pointHoverBackgroundColor: "#fff",
-        borderWidth: 2,
-        data: dataset.data,
-        label: dataset.label
-      }
-    ]
-  };
-  return () => data;
-};
+// const makeSocialBoxData = dataSetNo => {
+//   const dataset = socialBoxData[dataSetNo];
+//   const data = {
+//     labels: ["January", "February", "March", "April", "May", "June", "July"],
+//     datasets: [
+//       {
+//         backgroundColor: "rgba(255,255,255,.1)",
+//         borderColor: "rgba(255,255,255,.55)",
+//         pointHoverBackgroundColor: "#fff",
+//         borderWidth: 2,
+//         data: dataset.data,
+//         label: dataset.label
+//       }
+//     ]
+//   };
+//   return () => data;
+// };
 
-const socialChartOpts = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  responsive: true,
-  maintainAspectRatio: false,
-  legend: {
-    display: false
-  },
-  scales: {
-    xAxes: [
-      {
-        display: false
-      }
-    ],
-    yAxes: [
-      {
-        display: false
-      }
-    ]
-  },
-  elements: {
-    point: {
-      radius: 0,
-      hitRadius: 10,
-      hoverRadius: 4,
-      hoverBorderWidth: 3
-    }
-  }
-};
+// const socialChartOpts = {
+//   tooltips: {
+//     enabled: false,
+//     custom: CustomTooltips
+//   },
+//   responsive: true,
+//   maintainAspectRatio: false,
+//   legend: {
+//     display: false
+//   },
+//   scales: {
+//     xAxes: [
+//       {
+//         display: false
+//       }
+//     ],
+//     yAxes: [
+//       {
+//         display: false
+//       }
+//     ]
+//   },
+//   elements: {
+//     point: {
+//       radius: 0,
+//       hitRadius: 10,
+//       hoverRadius: 4,
+//       hoverBorderWidth: 3
+//     }
+//   }
+// };
 
-// sparkline charts
-const sparkLineChartData = [
-  {
-    data: [35, 23, 56, 22, 97, 23, 64],
-    label: "New Clients"
-  },
-  {
-    data: [65, 59, 84, 84, 51, 55, 40],
-    label: "Recurring Clients"
-  },
-  {
-    data: [35, 23, 56, 22, 97, 23, 64],
-    label: "Pageviews"
-  },
-  {
-    data: [65, 59, 84, 84, 51, 55, 40],
-    label: "Organic"
-  },
-  {
-    data: [78, 81, 80, 45, 34, 12, 40],
-    label: "CTR"
-  },
-  {
-    data: [1, 13, 9, 17, 34, 41, 38],
-    label: "Bounce Rate"
-  }
-];
+// // sparkline charts
+// const sparkLineChartData = [
+//   {
+//     data: [35, 23, 56, 22, 97, 23, 64],
+//     label: "New Clients"
+//   },
+//   {
+//     data: [65, 59, 84, 84, 51, 55, 40],
+//     label: "Recurring Clients"
+//   },
+//   {
+//     data: [35, 23, 56, 22, 97, 23, 64],
+//     label: "Pageviews"
+//   },
+//   {
+//     data: [65, 59, 84, 84, 51, 55, 40],
+//     label: "Organic"
+//   },
+//   {
+//     data: [78, 81, 80, 45, 34, 12, 40],
+//     label: "CTR"
+//   },
+//   {
+//     data: [1, 13, 9, 17, 34, 41, 38],
+//     label: "Bounce Rate"
+//   }
+// ];
 
-const makeSparkLineData = (dataSetNo, variant) => {
-  const dataset = sparkLineChartData[dataSetNo];
-  const data = {
-    labels: [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday"
-    ],
-    datasets: [
-      {
-        backgroundColor: "transparent",
-        borderColor: variant ? variant : "#c2cfd6",
-        data: dataset.data,
-        label: dataset.label
-      }
-    ]
-  };
-  return () => data;
-};
+// const makeSparkLineData = (dataSetNo, variant) => {
+//   const dataset = sparkLineChartData[dataSetNo];
+//   const data = {
+//     labels: [
+//       "Monday",
+//       "Tuesday",
+//       "Wednesday",
+//       "Thursday",
+//       "Friday",
+//       "Saturday",
+//       "Sunday"
+//     ],
+//     datasets: [
+//       {
+//         backgroundColor: "transparent",
+//         borderColor: variant ? variant : "#c2cfd6",
+//         data: dataset.data,
+//         label: dataset.label
+//       }
+//     ]
+//   };
+//   return () => data;
+// };
 
-const sparklineChartOpts = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  responsive: true,
-  maintainAspectRatio: true,
-  scales: {
-    xAxes: [
-      {
-        display: false
-      }
-    ],
-    yAxes: [
-      {
-        display: false
-      }
-    ]
-  },
-  elements: {
-    line: {
-      borderWidth: 2
-    },
-    point: {
-      radius: 0,
-      hitRadius: 10,
-      hoverRadius: 4,
-      hoverBorderWidth: 3
-    }
-  },
-  legend: {
-    display: false
-  }
-};
+// const sparklineChartOpts = {
+//   tooltips: {
+//     enabled: false,
+//     custom: CustomTooltips
+//   },
+//   responsive: true,
+//   maintainAspectRatio: true,
+//   scales: {
+//     xAxes: [
+//       {
+//         display: false
+//       }
+//     ],
+//     yAxes: [
+//       {
+//         display: false
+//       }
+//     ]
+//   },
+//   elements: {
+//     line: {
+//       borderWidth: 2
+//     },
+//     point: {
+//       radius: 0,
+//       hitRadius: 10,
+//       hoverRadius: 4,
+//       hoverBorderWidth: 3
+//     }
+//   },
+//   legend: {
+//     display: false
+//   }
+// };
 
 // Main Chart
 
@@ -398,114 +343,116 @@ for (var i = 0; i <= elements; i++) {
   data3.push(65);
 }
 
-const mainChart = {
-  labels: [
-    "Mo",
-    "Tu",
-    "We",
-    "Th",
-    "Fr",
-    "Sa",
-    "Su",
-    "Mo",
-    "Tu",
-    "We",
-    "Th",
-    "Fr",
-    "Sa",
-    "Su",
-    "Mo",
-    "Tu",
-    "We",
-    "Th",
-    "Fr",
-    "Sa",
-    "Su",
-    "Mo",
-    "Tu",
-    "We",
-    "Th",
-    "Fr",
-    "Sa",
-    "Su"
-  ],
-  datasets: [
-    {
-      label: "My First dataset",
-      backgroundColor: hexToRgba(brandInfo, 10),
-      borderColor: brandInfo,
-      pointHoverBackgroundColor: "#fff",
-      borderWidth: 2,
-      data: data1
-    },
-    {
-      label: "My Second dataset",
-      backgroundColor: "transparent",
-      borderColor: brandSuccess,
-      pointHoverBackgroundColor: "#fff",
-      borderWidth: 2,
-      data: data2
-    },
-    {
-      label: "My Third dataset",
-      backgroundColor: "transparent",
-      borderColor: brandDanger,
-      pointHoverBackgroundColor: "#fff",
-      borderWidth: 1,
-      borderDash: [8, 5],
-      data: data3
-    }
-  ]
-};
+// const mainChart = {
+//   labels: [
+//     "Mo",
+//     "Tu",
+//     "We",
+//     "Th",
+//     "Fr",
+//     "Sa",
+//     "Su",
+//     "Mo",
+//     "Tu",
+//     "We",
+//     "Th",
+//     "Fr",
+//     "Sa",
+//     "Su",
+//     "Mo",
+//     "Tu",
+//     "We",
+//     "Th",
+//     "Fr",
+//     "Sa",
+//     "Su",
+//     "Mo",
+//     "Tu",
+//     "We",
+//     "Th",
+//     "Fr",
+//     "Sa",
+//     "Su"
+//   ],
+//   datasets: [
+//     {
+//       label: "My First dataset",
+//       backgroundColor: hexToRgba(brandInfo, 10),
+//       borderColor: brandInfo,
+//       pointHoverBackgroundColor: "#fff",
+//       borderWidth: 2,
+//       data: data1
+//     },
+//     {
+//       label: "My Second dataset",
+//       backgroundColor: "transparent",
+//       borderColor: brandSuccess,
+//       pointHoverBackgroundColor: "#fff",
+//       borderWidth: 2,
+//       data: data2
+//     },
+//     {
+//       label: "My Third dataset",
+//       backgroundColor: "transparent",
+//       borderColor: brandDanger,
+//       pointHoverBackgroundColor: "#fff",
+//       borderWidth: 1,
+//       borderDash: [8, 5],
+//       data: data3
+//     }
+//   ]
+// };
 
-const mainChartOpts = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips,
-    intersect: true,
-    mode: "index",
-    position: "nearest",
-    callbacks: {
-      labelColor: function(tooltipItem, chart) {
-        return {
-          backgroundColor:
-            chart.data.datasets[tooltipItem.datasetIndex].borderColor
-        };
-      }
-    }
-  },
-  maintainAspectRatio: false,
-  legend: {
-    display: false
-  },
-  scales: {
-    xAxes: [
-      {
-        gridLines: {
-          drawOnChartArea: false
-        }
-      }
-    ],
-    yAxes: [
-      {
-        ticks: {
-          beginAtZero: true,
-          maxTicksLimit: 5,
-          stepSize: Math.ceil(250 / 5),
-          max: 250
-        }
-      }
-    ]
-  },
-  elements: {
-    point: {
-      radius: 0,
-      hitRadius: 10,
-      hoverRadius: 4,
-      hoverBorderWidth: 3
-    }
-  }
-};
+// const mainChartOpts = {
+//   tooltips: {
+//     enabled: false,
+//     custom: CustomTooltips,
+//     intersect: true,
+//     mode: "index",
+//     position: "nearest",
+//     callbacks: {
+//       labelColor: function(tooltipItem, chart) {
+//         return {
+//           backgroundColor:
+//             chart.data.datasets[tooltipItem.datasetIndex].borderColor
+//         };
+//       }
+//     }
+//   },
+//   maintainAspectRatio: false,
+//   legend: {
+//     display: false
+//   },
+//   scales: {
+//     xAxes: [
+//       {
+//         gridLines: {
+//           drawOnChartArea: false
+//         }
+//       }
+//     ],
+//     yAxes: [
+//       {
+//         ticks: {
+//           beginAtZero: true,
+//           maxTicksLimit: 5,
+//           stepSize: Math.ceil(250 / 5),
+//           max: 250
+//         }
+//       }
+//     ]
+//   },
+//   elements: {
+//     point: {
+//       radius: 0,
+//       hitRadius: 10,
+//       hoverRadius: 4,
+//       hoverBorderWidth: 3
+//     }
+//   }
+// };
+
+const url = "http://localhost:4000/api";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -518,18 +465,20 @@ class Dashboard extends Component {
       dropdownOpen: false,
       radioSelected: 2,
       users: [],
-      usersCount: 0
+      usersCount: 0,
+      page: 0
     };
   }
 
   getDataUser = async number => {
-    const url = "http://localhost:4000/api";
 
     let {
       data: { data, count }
     } = await axios.get(`${url}/users?offset=${number}`);
+    let _page = (count % 10 >= 5)
+      ? Math.floor(count / 10) + 1 : Math.floor(count / 10) 
 
-    this.setState({ users: data, usersCount: count });
+    this.setState({ users: data, usersCount: count, page: _page });
   };
 
   toggle() {
@@ -544,6 +493,18 @@ class Dashboard extends Component {
     });
   }
 
+  onClickUserItem = (user) => {
+    this.props.history.push(`/users/${user._id}`)
+  }
+
+  onChangeStatusUser = async user => {
+    const { _id, isActive } = user
+    await axios.post(`${url}/update-status-acount`, {
+      userId: _id,
+      status: !isActive
+    })
+  }
+
   loading = () => (
     <div className="animated fadeIn pt-1 text-center">Loading...</div>
   );
@@ -553,7 +514,7 @@ class Dashboard extends Component {
   };
 
   render() {
-    const { users, usersCount } = this.state;
+    const { users, usersCount, page } = this.state;
     console.log("userrrrrrrr: ", users);
 
     return (
@@ -597,24 +558,23 @@ class Dashboard extends Component {
         <Table
           hover
           responsive
-          className="table-outline mb-0 d-none d-sm-table"
+          className="table-outline mb-0 d-none d-sm-table big-table"
         >
           <thead className="thead-light">
             <tr>
               <th className="text-center">
                 <i className="icon-people"></i>
               </th>
-              <th>User</th>
-              <th className="text-center">Country</th>
-              <th>Activity</th>
+              <th>Tên người dùng</th>
+              <th>Trạng thái</th>
             </tr>
           </thead>
 
-          {users.map(item => {
-            return (
-              <tbody>
-                <tr>
-                  <td className="text-center">
+          <tbody>
+            {users.map(item => {
+              return (
+                <tr key={item._id}>
+                  <td className="text-center" onClick={evt => this.onClickUserItem(item)}>
                     <div className="avatar">
                       {item.image ? (
                         <img
@@ -624,7 +584,7 @@ class Dashboard extends Component {
                         />
                       ) : (
                         <img
-                          src="https://beautifulmemory.sg/wp-content/uploads/2019/03/default-avatar-profile-icon-vector-18942381.jpg"
+                          src="/assets/img/default-avatar.png"
                           className="img-avatar"
                           alt=""
                         />
@@ -632,53 +592,35 @@ class Dashboard extends Component {
                       <span className="avatar-status badge-success"></span>
                     </div>
                   </td>
-                  <td>
+                  <td onClick={evt => this.onClickUserItem(item)}>
                     <div>{item.fullName}</div>
                     <div className="small text-muted"></div>
                   </td>
                   <td className="text-center">
-                    <i
-                      className="flag-icon flag-icon-vn h4 mb-0"
-                      title="us"
-                      id="us"
-                    ></i>
-                  </td>
-                  <td>
-                    <div className="small text-muted">Last login</div>
-                    <strong>a day ago</strong>
+                    <AppSwitch
+                      className={'float-left'}
+                      variant={'pill'}
+                      color={'success'}
+                      size={'lg'}
+                      checked={item.isActive}
+                      label
+                      onChange={() => this.onChangeStatusUser(item)}
+                    />
                   </td>
                 </tr>
-              </tbody>
-            );
-          })}
-          <Pagination>
-            <PaginationItem>
-              <PaginationLink onClick={() => this.getDataUser(1)}>
-                1
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink onClick={() => this.getDataUser(2)}>
-                2
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink onClick={() => this.getDataUser(3)}>
-                3
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink onClick={() => this.getDataUser(4)}>
-                4
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink onClick={() => this.getDataUser(5)}>
-                5
-              </PaginationLink>
-            </PaginationItem>
-          </Pagination>
+              );
+            })}
+          </tbody>
         </Table>
+        <Pagination>
+          {page && Array(page).fill(null).map((val, index) => (
+            <PaginationItem key={index}>
+              <PaginationLink onClick={() => this.getDataUser(index + 1)}>
+                {index + 1}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+        </Pagination>
       </div>
     );
   }

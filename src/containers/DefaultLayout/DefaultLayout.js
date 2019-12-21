@@ -5,7 +5,6 @@ import { Container } from 'reactstrap';
 
 import {
   AppAside,
-  AppFooter,
   AppHeader,
   AppSidebar,
   AppSidebarFooter,
@@ -21,7 +20,6 @@ import navigation from '../../_nav';
 import routes from '../../routes';
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
-const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
 const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
 
 class DefaultLayout extends Component {
@@ -31,6 +29,13 @@ class DefaultLayout extends Component {
   signOut(e) {
     e.preventDefault()
     this.props.history.push('/login')
+  }
+
+  componentDidMount () {
+    const user = localStorage.getItem('userAuth')
+    if (!user) {
+      this.props.history.push('/login')
+    }
   }
 
   render() {

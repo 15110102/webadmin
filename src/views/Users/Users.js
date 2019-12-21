@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import {
-  Badge,
   Card,
   CardBody,
   CardHeader,
@@ -13,23 +12,10 @@ import {
   PaginationLink
 } from "reactstrap";
 import axios from "axios";
-import usersData from "./UsersData";
 
 function UserRow(props) {
   const user = props.user;
   const userLink = `/users/${user.idUser}`;
-
-  const getBadge = status => {
-    return status === "Active"
-      ? "success"
-      : status === "Inactive"
-      ? "secondary"
-      : status === "Pending"
-      ? "warning"
-      : status === "Banned"
-      ? "danger"
-      : "primary";
-  };
 
   return (
     <tr key={user.id.toString()}>
@@ -110,46 +96,46 @@ class Users extends Component {
                       <UserRow key={index} user={user} />
                     ))}
                   </tbody>
-                  <Pagination>
-                    <PaginationItem>
-                      <PaginationLink
-                        onClick={() => this.makeHttpRequestWithPage(1)}
-                      >
-                        1
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        onClick={() => this.makeHttpRequestWithPage(2)}
-                      >
-                        2
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        onClick={() => this.makeHttpRequestWithPage(3)}
-                      >
-                        3
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        onClick={() => this.makeHttpRequestWithPage(4)}
-                      >
-                        4
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        onClick={() => this.makeHttpRequestWithPage(5)}
-                      >
-                        5
-                      </PaginationLink>
-                    </PaginationItem>
-                  </Pagination>
                 </Table>
               </CardBody>
             </Card>
+            <Pagination>
+              <PaginationItem>
+                <PaginationLink
+                  onClick={() => this.makeHttpRequestWithPage(1)}
+                >
+                  1
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink
+                  onClick={() => this.makeHttpRequestWithPage(2)}
+                >
+                  2
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink
+                  onClick={() => this.makeHttpRequestWithPage(3)}
+                >
+                  3
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink
+                  onClick={() => this.makeHttpRequestWithPage(4)}
+                >
+                  4
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink
+                  onClick={() => this.makeHttpRequestWithPage(5)}
+                >
+                  5
+                </PaginationLink>
+              </PaginationItem>
+            </Pagination>
           </Col>
         </Row>
       </div>

@@ -9,7 +9,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend, Text
+  Legend
 } from "recharts";
 class Charts extends Component {
   constructor(props) {
@@ -38,19 +38,16 @@ class Charts extends Component {
   getDataUser = async () => {
     const url = 'http://localhost:4000/api';
     const users  = [...this.state.dataUser];
-    
     let { data: { data } } = await axios.get(`${url}/users`);
 
-    await data.map(user => {
+    data.forEach(user => {
       let nameMont = new Date(user.createdAt).toDateString().split(" ")[1];
-      users.map(item => {
-        if (item.name === nameMont) {
-          item.posts = user.posts.length;
-        }
-      })
-    })
-     
-    
+      let _item = users.find(item => item.name === nameMont)
+      if (_item) {
+        _item.posts = user.posts.length
+      }
+    });
+
     this.setState({ dataUser: users })
   }
 

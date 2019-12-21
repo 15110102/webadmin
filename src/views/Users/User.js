@@ -12,14 +12,12 @@ import {
 import {
   BarChart,
   Bar,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend
 } from "recharts";
-import usersData from "./UsersData";
 import Modal from "react-modal";
 class User extends Component {
   constructor(props) {
@@ -101,7 +99,7 @@ class User extends Component {
       isActive: !this.state.isActive
     });
   };
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault();
     const {user} = this.state;
     const userEdit = {
@@ -109,10 +107,7 @@ class User extends Component {
       email: this.state.email,
       username: this.state.userName
     };
-    axios.put(`http://localhost:4000/api/user/${user._id}`, { userEdit }).then(res => {
-      console.log(res);
-      console.log(res.data);
-    });
+    await axios.put(`http://localhost:4000/api/user/${user._id}`, { userEdit })
   };
 
   onClickMe() {

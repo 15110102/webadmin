@@ -12,7 +12,7 @@ export default class FromCreate extends React.Component {
     };
   }
 
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault();
 
     const user = {
@@ -22,10 +22,7 @@ export default class FromCreate extends React.Component {
       username: this.state.userName,
       password: this.state.password
     };
-    axios.post(`http://localhost:4000/api/user`, { user }).then(res => {
-      console.log(res);
-      console.log(res.data);
-    });
+    await axios.post(`http://localhost:4000/api/user`, { user })
   };
 
   onClickMe() {
@@ -34,7 +31,7 @@ export default class FromCreate extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="info-user" onSubmit={this.handleSubmit}>
         <span className="formtext">Tạo tài khoản</span>
         <div style={{ marginBottom: 10 }}>
           <input
