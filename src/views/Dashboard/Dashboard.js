@@ -515,7 +515,6 @@ class Dashboard extends Component {
 
   render() {
     const { users, usersCount, page } = this.state;
-    console.log("userrrrrrrr: ", users);
 
     return (
       <div className="animated fadeIn">
